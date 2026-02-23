@@ -1,14 +1,43 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>푸드 바이브 | 메뉴 추천</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+    <div class="app-container">
+        <header>
+            <h1 class="hero-text">오늘 뭐 먹을까?</h1>
+            <p class="subtitle">결정 장애를 위한 감각적인 메뉴 추천 서비스</p>
+        </header>
+
+        <main class="recommender-card">
+            <div id="display-area" class="menu-display">
+                <span id="food-emoji" class="emoji">🍕</span>
+                <h2 id="food-name" class="food-title">메뉴를 추천받으세요!</h2>
+            </div>
+            
+            <div class="controls">
+                <button id="recommend-btn" class="glow-button">메뉴 추천받기</button>
+            </div>
+        </main>
+
+        <section class="recent-list">
+            <h3>방금 나온 추천</h3>
+            <ul id="history-list">
+                <!-- 추천 기록이 여기에 추가됩니다. -->
+            </ul>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 푸드 바이브 (Food Vibe) | Crafted with Gemini</p>
+        </footer>
+    </div>
+    <script type="module" src="main.js"></script>
 </body>
 </html>
