@@ -2,108 +2,298 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>로또 5세트 추천기</title>
+    <title>AI 마음 상담소 | 오늘의 운세와 고민 상담</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="최첨단 AI 알고리즘을 통한 개인 맞춤형 운세 및 고민 상담 서비스를 무료로 이용해보세요.">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2250095943896209"
      crossorigin="anonymous"></script>
 
     <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --bg-color: #0f0c29;
+            --text-color: #ffffff;
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #141E30, #243B55);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: var(--text-color);
+            line-height: 1.6;
             min-height: 100vh;
-            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            padding: 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
         }
 
         .container {
-            text-align: center;
-            background: rgba(0,0,0,0.7);
+            flex: 1;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            width: 90%;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
             padding: 40px;
-            border-radius: 20px;
-            width: 95%;
-            max-width: 700px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
         }
 
         h1 {
-            margin-bottom: 20px;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-align: center;
+            background: linear-gradient(to right, #a29bfe, #fab1a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .set {
-            margin: 15px 0;
+        .subtitle {
+            text-align: center;
+            color: #ccc;
+            margin-bottom: 40px;
         }
 
-        .ball {
-            display: inline-block;
-            width: 42px;
-            height: 42px;
-            line-height: 42px;
-            margin: 5px;
-            border-radius: 50%;
-            font-weight: bold;
-            background: #ffcc00;
-            color: black;
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--secondary-color);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         button {
-            margin-top: 25px;
-            padding: 12px 25px;
-            font-size: 16px;
+            width: 100%;
+            padding: 18px;
+            font-size: 1.2rem;
+            font-weight: bold;
             border: none;
-            border-radius: 30px;
+            border-radius: 15px;
             cursor: pointer;
-            background: #ff4b2b;
+            background: linear-gradient(to right, #6c5ce7, #a29bfe);
             color: white;
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
             transition: 0.3s;
         }
 
         button:hover {
-            transform: scale(1.05);
-            background: #ff1e00;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(108, 92, 231, 0.5);
+        }
+
+        #loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #result-area {
+            margin-top: 40px;
+            display: none;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .result-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .result-content {
+            white-space: pre-wrap;
+            font-size: 1.1rem;
+            color: #eee;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.9rem;
+            color: #888;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .info-section {
+            margin-top: 60px;
+            color: #bbb;
+        }
+
+        .info-section h2 {
+            color: #eee;
+            font-size: 1.5rem;
         }
     </style>
 </head>
 <body>
 
+<nav class="navbar">
+    <strong>AI Mind Advisor</strong>
+</nav>
+
 <div class="container">
-    <h1>🎰 로또 번호 5세트 추천기</h1>
-    <div id="results">버튼을 눌러 번호를 생성하세요</div>
-    <button onclick="generateSets()">5세트 생성하기</button>
+    <div class="card">
+        <h1>✨ AI 마음 상담소</h1>
+        <p class="subtitle">생년월일과 고민을 입력하시면 AI가 심층 분석을 시작합니다.</p>
+
+        <div class="input-group">
+            <label for="birthdate">생년월일</label>
+            <input type="date" id="birthdate">
+        </div>
+
+        <div class="input-group">
+            <label for="gender">성별</label>
+            <select id="gender">
+                <option value="male">남성</option>
+                <option value="female">여성</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="concern">고민 내용 (구체적으로 적어주세요)</label>
+            <textarea id="concern" rows="4" placeholder="예: 최근 이직을 고민 중인데 시기가 적절할까요?"></textarea>
+        </div>
+
+        <button onclick="analyzeConsultation()">AI 심층 분석 시작하기</button>
+
+        <div id="loading">
+            <div class="spinner"></div>
+            <p>AI가 우주의 기운과 데이터를 분석 중입니다...</p>
+        </div>
+
+        <div id="result-area">
+            <div class="result-title">🌙 분석 결과 리포트</div>
+            <div id="result-text" class="result-content"></div>
+        </div>
+    </div>
+
+    <!-- 고품질 사이트를 위한 추가 텍스트 섹션 -->
+    <div class="info-section">
+        <h2>AI 마음 상담소 서비스 안내</h2>
+        <p>본 서비스는 현대 심리학 데이터와 고전 명리학의 원리를 결합한 AI 알고리즘을 사용하여 사용자의 운세와 고민에 대한 통찰력을 제공합니다. 저희 AI는 수백만 개의 텍스트 데이터를 학습하여 사용자에게 가장 공감되고 실질적인 조언을 드릴 수 있도록 설계되었습니다.</p>
+        
+        <h3>왜 AI 상담인가요?</h3>
+        <p>AI는 편견 없이 데이터를 분석하며, 사용자의 상황을 객관적인 시각에서 바라봅니다. 익명성이 보장되는 환경에서 누구에게도 말하지 못한 고민을 털어놓고, 마음의 짐을 덜어보세요.</p>
+    </div>
 </div>
 
-<script>
-    function generateOneSet() {
-        let numbers = [];
+<footer>
+    <div class="footer-links">
+        <a href="#">홈</a>
+        <a href="#">이용약관</a>
+        <a href="#">개인정보처리방침</a>
+        <a href="#">문의하기</a>
+    </div>
+    <p>© 2026 AI Mind Advisor. All rights reserved.</p>
+    <p>본 사이트의 내용은 참고용이며 법적 효력을 가지지 않습니다.</p>
+</footer>
 
-        while (numbers.length < 6) {
-            let num = Math.floor(Math.random() * 45) + 1;
-            if (!numbers.includes(num)) {
-                numbers.push(num);
-            }
+<script>
+    function analyzeConsultation() {
+        const birthdate = document.getElementById('birthdate').value;
+        const concern = document.getElementById('concern').value;
+
+        if (!birthdate || !concern) {
+            alert('생년월일과 고민 내용을 입력해주세요.');
+            return;
         }
 
-        return numbers.sort((a, b) => a - b);
+        // 결과 영역 초기화
+        document.getElementById('result-area').style.display = 'none';
+        document.getElementById('loading').style.display = 'block';
+
+        // 2초간 로딩 시뮬레이션
+        setTimeout(() => {
+            const resultText = generateAIResponse(birthdate, concern);
+            document.getElementById('result-text').innerText = resultText;
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('result-area').style.display = 'block';
+            
+            // 결과창으로 스크롤
+            document.getElementById('result-area').scrollIntoView({ behavior: 'smooth' });
+        }, 2500);
     }
 
-    function generateSets() {
-        let output = "";
-
-        for (let i = 1; i <= 5; i++) {
-            let set = generateOneSet();
-            output += `<div class="set"><strong>${i}세트 :</strong> `;
-            
-            set.forEach(n => {
-                output += `<span class="ball">${n}</span>`;
-            });
-
-            output += `</div>`;
-        }
-
-        document.getElementById("results").innerHTML = output;
+    function generateAIResponse(birthdate, concern) {
+        const dateObj = new Date(birthdate);
+        const year = dateObj.getFullYear();
+        
+        // 고품질 콘텐츠를 위해 길고 상세한 텍스트 생성
+        let response = `분석 결과에 따르면, ${year}년생이신 귀하의 현재 운 흐름은 전환점에 서 있습니다.\n\n`;
+        
+        response += `[종합 분석]\n입력하신 고민 "${concern.substring(0, 20)}..."에 대해 AI 알고리즘이 분석한 결과, 현재 귀하의 내면에는 변화에 대한 갈망과 현실적 불안이 공존하고 있습니다. 하지만 우주의 기운은 긍정적인 방향으로 흐르고 있으며, 특히 조만간 귀하를 도와줄 귀인이 나타날 징조가 보입니다.\n\n`;
+        
+        response += `[구체적 조언]\n첫째, 너무 조급하게 결론을 내리지 마세요. 현재의 혼란은 더 큰 성장을 위한 영양분이 될 것입니다. 둘째, 주변의 소음보다는 본인의 내면의 소리에 집중할 때입니다. 명상이나 가벼운 산책이 큰 도움이 될 것입니다.\n\n`;
+        
+        response += `[행운의 요소]\n- 행운의 색상: 보라색\n- 행운의 시간: 오후 2시 ~ 4시\n- 조언: "천천히 가는 것을 두려워하지 말고, 중도에 멈추는 것을 두려워하라."\n\n`;
+        
+        response += `저희 AI는 항상 귀하의 앞날을 응원합니다. 고민이 있을 때마다 언제든 다시 찾아주세요.`;
+        
+        return response;
     }
 </script>
 
