@@ -2,42 +2,110 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <title>로또 5세트 추천기</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>푸드 바이브 | 메뉴 추천</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700;800&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2250095943896209"
+     crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #141E30, #243B55);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(0,0,0,0.7);
+            padding: 40px;
+            border-radius: 20px;
+            width: 95%;
+            max-width: 700px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .set {
+            margin: 15px 0;
+        }
+
+        .ball {
+            display: inline-block;
+            width: 42px;
+            height: 42px;
+            line-height: 42px;
+            margin: 5px;
+            border-radius: 50%;
+            font-weight: bold;
+            background: #ffcc00;
+            color: black;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            background: #ff4b2b;
+            color: white;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background: #ff1e00;
+        }
+    </style>
 </head>
 <body>
-    <div class="app-container">
-        <header>
-            <h1 class="hero-text">오늘 뭐 먹을까?</h1>
-            <p class="subtitle">결정 장애를 위한 감각적인 메뉴 추천 서비스</p>
-        </header>
 
-        <main class="recommender-card">
-            <div id="display-area" class="menu-display">
-                <span id="food-emoji" class="emoji">🍕</span>
-                <h2 id="food-name" class="food-title">메뉴를 추천받으세요!</h2>
-            </div>
+<div class="container">
+    <h1>🎰 로또 번호 5세트 추천기</h1>
+    <div id="results">버튼을 눌러 번호를 생성하세요</div>
+    <button onclick="generateSets()">5세트 생성하기</button>
+</div>
+
+<script>
+    function generateOneSet() {
+        let numbers = [];
+
+        while (numbers.length < 6) {
+            let num = Math.floor(Math.random() * 45) + 1;
+            if (!numbers.includes(num)) {
+                numbers.push(num);
+            }
+        }
+
+        return numbers.sort((a, b) => a - b);
+    }
+
+    function generateSets() {
+        let output = "";
+
+        for (let i = 1; i <= 5; i++) {
+            let set = generateOneSet();
+            output += `<div class="set"><strong>${i}세트 :</strong> `;
             
-            <div class="controls">
-                <button id="recommend-btn" class="glow-button">메뉴 추천받기</button>
-            </div>
-        </main>
+            set.forEach(n => {
+                output += `<span class="ball">${n}</span>`;
+            });
 
-        <section class="recent-list">
-            <h3>방금 나온 추천</h3>
-            <ul id="history-list">
-                <!-- 추천 기록이 여기에 추가됩니다. -->
-            </ul>
-        </section>
+            output += `</div>`;
+        }
 
-        <footer>
-            <p>&copy; 2026 푸드 바이브 (Food Vibe) | Crafted with Gemini</p>
-        </footer>
-    </div>
-    <script type="module" src="main.js"></script>
+        document.getElementById("results").innerHTML = output;
+    }
+</script>
+
 </body>
 </html>
